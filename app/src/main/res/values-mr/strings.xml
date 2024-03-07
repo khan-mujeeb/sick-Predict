@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">वैद्यकीय आभासी सहाय्यक</string>
+
+    <string name="loading">लोड करत आहे…</string>
+    <string name="name">नाव</string>
+    <string name="mobile">मोबाईल</string>
+    <string name="email">ईमेल</string>
+    <string name="dob">जन्मतारीख </string>
+    <string name="gender">लिंग</string>
+    <string name="user">वापरकर्ता</string>
+    <string name="doctor">डॉक्टर</string>
+
+    <string name="login_header">वापरकर्ता लॉगिन</string>
+    <string name="doc_login_header">डॉक्टर लॉगिन</string>
+    <string name="username">वापरकर्ता नाव</string>
+    <string name="password">पासवर्ड</string>
+    <string name="show_pass">पासवर्ड बघा</string>
+    <string name="forgot_pass">पासवर्ड विसरलात?</string>
+    <string name="signin_btn">लॉग इन</string>
+    <string name="signup_txt">खाते नाही? साइन अप करा</string>
+    <string name="change_lang">भाषा बदला</string>
+
+    <string name="login_to_user">वापरकर्ता लॉगिन करा</string>
+    <string name="login_to_doctor">डॉक्टर लॉगिन करा</string>
+
+    <string name="register_header">नोंदणी करा</string>
+    <string name="fullname">पूर्ण नाव</string>
+    <string name="cnf_pass">पासवर्डची पुष्टी करा</string>
+    <string name="sign_up">साइन अप करा</string>
+    <string name="male">पुरुष</string>
+    <string name="female">स्त्री</string>
+
+    <string name="sign_in_txt">आधीपासूनच सदस्य आहात? येथे लॉगिन करा</string>
+
+    <string name="update_email_txt">तुमचा ईमेल अपडेट करा</string>
+
+    <string name="user_display_picture">वापरकर्ता प्रोफाइल फोटो</string>
+    <string name="current_email">वर्तमान ईमेल</string>
+    <string name="update_email_desc">तुम्ही तुमचा पासवर्ड टाकून तुमचा प्रोफाईल ऑथेंटिकेट केल्यानंतर तुमचा ईमेल अपडेट करू शकता.</string>
+    <string name="authenticate">प्रमाणीकरण करा</string>
+    <string name="new_email">नवीन ईमेल</string>
+    <string name="update_email">ईमेल अपडेट करा</string>
+    <string name="warning">तुमचे प्रोफाईल अद्याप प्रमाणित/सत्यापित झालेले नाही!</string>
+
+    <string name="change_pass_header">आपला पासवर्ड बदला</string>
+    <string name="current_pass">सध्याचा पासवर्ड</string>
+    <string name="change_pass_desc">तुम्ही तुमचा प्रोफाईल ऑथेंटिकेट केल्यानंतर तुमचा सध्याचा पासवर्ड टाकून तुमचा पासवर्ड बदलू शकता.</string>
+
+    <string name="curr_new_pass">नवीन पासवर्ड</string>
+    <string name="cnf_curr_new_pass">नवीन पासवर्ड कन्फर्म करा</string>
+    <string name="change_pass">पासवर्ड बदला</string>
+
+    <string name="del_profile_header">तुमचे प्रोफाइल हटवा</string>
+    <string name="delete_profile">प्रोफाइल हटवा</string>
+    <string name="del_profile_desc">तुम्ही तुमचा सध्याचा पासवर्ड टाकून तुमची प्रोफाईल ऑथेंटिकेट केल्यानंतर तुम्ही तुमचा प्रोफाईल आणि सर्व संबंधित डेटा हटवू शकता.</string>
+    <string name="update_profile_header">तुम्ही आता तुमचे प्रोफाइल तपशील अपडेट करू शकता!</string>
+    <string name="update_profile">प्रोफाइल अपडेट करा</string>
+    <string name="update_profile_photo">अपडेट प्रोफाइल फोटो</string>
+
+    <string name="forgot_pass_header">तुमचा पासवर्ड विसरलात?</string>
+    <string name="forgot_pass_desc">पासवर्ड रीसेट लिंक प्राप्त करण्यासाठी कृपया तुमचा नोंदणीकृत ईमेल प्रविष्ट करा</string>
+    <string name="reset_pass">पासवर्ड रीसेट करा</string>
+
+    <string name="upload_dp">तुमचा प्रोफाईल फोटो अपलोड करा</string>
+    <string name="choose_dp">फोटो निवडा</string>
+    <string name="upload">अपलोड करा</string>
+
+
+    <string name="prediction_icon">रोगाचा अंदाज</string>
+    <string name="services">सेवा</string>
+    <string name="vc">व्हिडिओ सल्ला</string>
+    <string name="medicine">औषधे</string>
+    <string name="top_doc">उत्तम डॉक्टर्स</string>
+    <string name="predict_header">तुमचा आजार शोधा</string>
+    <string name="predict_desc">कृपया रोगाचा अंदाज लावण्यासाठी तुमची लक्षणे प्रविष्ट करा.</string>
+    <string name="symptoms">लक्षणे</string>
+    <string name="predict_btn">रोगाचा अंदाज लावा</string>
+
+</resources>
