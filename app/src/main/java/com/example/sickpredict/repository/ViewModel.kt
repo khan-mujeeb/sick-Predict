@@ -5,7 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
 import com.example.sickpredict.data.Message.Message
-import com.google.firebase.auth.UserInfo
+import com.example.sickpredict.data.Message.UserInfo
+import com.example.sickpredict.data.user.User
 
 class ViewModel(private val repository: Repository = Repository()): androidx.lifecycle.ViewModel() {
 
@@ -15,20 +16,29 @@ class ViewModel(private val repository: Repository = Repository()): androidx.lif
     /*
     function to get User List
      */
-//    fun getUserList(callback: (List<UserInfo>) -> Unit) {
-//        repository.getUserList { task ->
-//            callback(task)
-//        }
-//    }
-
-    fun sendMessages(senderRoom: String, reciverRoom: String, message: Message, randomkey: String, recever_fcm_token: String) {
-        repository.sendMessages(senderRoom, reciverRoom, message, randomkey,recever_fcm_token)
+    fun getUserList(uid: String, callback: (uid: String, List<UserInfo>) -> Unit) {
+        repository.getUserList(uid) { userList ->
+            callback(uid, userList)
+        }
     }
 
 
-//    fun updateUserInfo(name: String, about: String, userId: String) {
-//        repository.updateUserInfo(name, about, userId)
-//    }
+    /*
+     add user to patient list
+     */
+    fun addUserToPatientList(
+        user: User,
+        receverUid: String
+    ) {
+        repository.addUserToPatientList(user, receverUid)
+    }
+
+
+    fun sendMessages(senderRoom: String, reciverRoom: String, message: Message, randomkey: String, recever_fcm_token: String, receverUid: String) {
+        repository.sendMessages(senderRoom, reciverRoom, message, randomkey,recever_fcm_token, receverUid)
+    }
+
+
 
     /*
     delete sender message

@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sickpredict.doctor.DoctorDashboardActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -60,6 +61,8 @@ public class DoctorLoginActivity extends AppCompat {
         loginButton = (Button) findViewById(R.id.doc_login_button);
         forgotPassword = (TextView) findViewById(R.id.ForgotPassword);
         chk =(CheckBox) findViewById(R.id.chkBox1);
+
+        checkUserIsLoginedOrNot();
 
         chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -121,6 +124,16 @@ public class DoctorLoginActivity extends AppCompat {
  */
     }
 
+
+    private void checkUserIsLoginedOrNot() {
+        //Get current user
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(firebaseUser != null){
+            startActivity(new Intent(DoctorLoginActivity.this, DoctorDashboardActivity.class));
+            finish();
+        }
+    }
+
     private void loginUser(String email, String pwd) {
         firebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(DoctorLoginActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -135,7 +148,7 @@ public class DoctorLoginActivity extends AppCompat {
                         Toast.makeText(DoctorLoginActivity.this,"You are logged in now!",Toast.LENGTH_SHORT).show();
 
                         //Start ProfileActiviy
-                        startActivity(new Intent(DoctorLoginActivity.this,DoctorDashboardActivity.class));
+                        startActivity(new Intent(DoctorLoginActivity.this, DoctorDashboardActivity.class));
                         finish();
                     }
                     else {

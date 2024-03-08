@@ -5,13 +5,12 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
 import com.example.sickpredict.adapter.MessageAdapter
 import com.example.sickpredict.data.Message.Message
+import com.example.sickpredict.data.user.User
 import com.example.sickpredict.databinding.ActivityUserChatBinding
 import com.example.sickpredict.repository.ViewModel
 import com.example.sickpredict.utils.FirebaseUtils
-import com.example.sickpredict.utils.FirebaseUtils.chatRef
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -58,8 +57,12 @@ class UserChatActivity : AppCompatActivity() {
 
 
         // fetching most recent message from firebase realtime database
-        chatRef.child(senderRoom)
-            .child("message")
+        FirebaseUtils.firebaseDatabase.reference
+            .child("chats")
+            .child(reciverUid)
+            .child("messages")
+            .child(senderRoom)
+
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     list.clear()
@@ -98,11 +101,28 @@ class UserChatActivity : AppCompatActivity() {
             // creating message
             val message = Message(
                 message = textMeassage.toString(),
-                sendUid =  senderUid,
+                sendUid = senderUid,
                 timeSTamp = Date().time,
                 messageId = randomkey,
                 senderName = senderName
             )
+
+            FirebaseUtils.firebaseDatabase.getReference("Registered Users").child(senderUid)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            val user = snapshot.getValue(User::class.java)
+                            viewModel.addUserToPatientList(user!!, reciverUid)
+
+                        } else {
+
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Toast.makeText(this@UserChatActivity, "Error", Toast.LENGTH_SHORT).show()
+                    }
+                })
 
 
 //            sending message
@@ -113,7 +133,8 @@ class UserChatActivity : AppCompatActivity() {
                     reciverRoom = reciverRoom,
                     randomkey = randomkey,
                     message = message,
-                    recever_fcm_token = recever_fcm_token
+                    recever_fcm_token = recever_fcm_token,
+                    receverUid = reciverUid
                 )
             } else {
                 Toast.makeText(this, "Enter your text", Toast.LENGTH_SHORT).show()
@@ -126,24 +147,21 @@ class UserChatActivity : AppCompatActivity() {
     }
 
     private fun variableInit() {
-        recever_fcm_token= "fegtrhthy"
+        recever_fcm_token = "fegtrhthy"
         auth = FirebaseUtils.firebaseAuth
         database = FirebaseUtils.firebaseDatabase
 
         viewModel = ViewModelProvider(this)[ViewModel::class.java]
         senderUid = auth.uid.toString()
-        reciverUid = "GIe1ZRRAkxgwbilPPvgOQLUFKsi2"
+        reciverUid = intent.getStringExtra("uid")!!
         senderRoom = senderUid + reciverUid
         reciverRoom = reciverUid + senderUid
 
 //        img = intent.getStringExtra("img")!!
-//        name = intent.getStringExtra("name")!!
-        name = "IShu"
+        name = intent.getStringExtra("name")!!
         list = ArrayList()
 
-//        viewModel.getFcmToken(reciverUid) { token->
-//            recever_fcm_token = token
-//        }
+
     }
 
     override fun onResume() {

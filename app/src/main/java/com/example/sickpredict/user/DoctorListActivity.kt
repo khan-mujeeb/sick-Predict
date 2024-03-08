@@ -21,16 +21,23 @@ class DoctorListActivity : AppCompatActivity() {
     }
 
     private fun subscribeClickListner() {
+        val intent = Intent(this, UserChatActivity::class.java)
         binding.dr1.setOnClickListener {
-            startActivity(Intent(this, UserChatActivity::class.java))
+            intent.putExtra("name", "Dr. Isha Kalbhor")
+            intent.putExtra("uid", "")
+            startActivity(intent)
         }
 
         binding.dr2.setOnClickListener {
-            startActivity(Intent(this, UserChatActivity::class.java))
+            intent.putExtra("name", "Dr. Wini Rasam")
+            intent.putExtra("uid", "")
+            startActivity(intent)
         }
 
         binding.dr3.setOnClickListener {
-            startActivity(Intent(this, UserChatActivity::class.java))
+            intent.putExtra("name", "Dr. H. Khalate")
+            intent.putExtra("uid", "sZkJJFsmlldSjr2iawsu38IJT612")
+            startActivity(intent)
         }
     }
 

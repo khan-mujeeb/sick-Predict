@@ -1,12 +1,17 @@
 package com.example.sickpredict.repository
 
 import com.example.sickpredict.data.Message.Message
+import com.example.sickpredict.data.Message.UserInfo
+import com.example.sickpredict.data.user.User
 import com.example.sickpredict.utils.ConstUtils.message
+import com.example.sickpredict.utils.ConstUtils.userNode
 import com.example.sickpredict.utils.FirebaseUtils
 import com.example.sickpredict.utils.FirebaseUtils.chatRef
 import com.example.sickpredict.utils.FirebaseUtils.firebaseAuth
 import com.example.sickpredict.utils.FirebaseUtils.firebaseDatabase
-import com.google.firebase.auth.UserInfo
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 
 class Repository {
 
@@ -22,12 +27,16 @@ class Repository {
         reciverRoom: String,
         message: Message,
         randomkey: String,
-        recever_fcm_token: String
+        recever_fcm_token: String,
+        receverUid: String
     ) {
         firebaseDatabase.reference
             .child("chats")
+            .child(receverUid)
+            .child("messages")
+
             .child(senderRoom)
-            .child("message")
+
             .child(randomkey)
             .setValue(message)
             .addOnSuccessListener {
@@ -57,13 +66,36 @@ class Repository {
 
                 firebaseDatabase.reference
                     .child("chats")
+                    .child(receverUid)
+                    .child("messages")
+
                     .child(reciverRoom)
-                    .child("message")
+
                     .child(randomkey)
                     .setValue(message)
                     .addOnSuccessListener {
 
                     }
+
+            }
+    }
+
+
+    /*
+     add user to patient list
+     */
+    fun addUserToPatientList(
+        user: User,
+        receverUid: String,
+
+    ) {
+        firebaseDatabase.reference
+            .child("chats")
+            .child(receverUid)
+            .child("patientList")
+            .child(user.uid)
+            .setValue(user)
+            .addOnSuccessListener {
 
             }
     }
@@ -88,17 +120,32 @@ class Repository {
 //    }
 
 
-    /*
-    get user info
-     */
-//    fun updateUserInfo(name: String, about: String, userId: String) {
-//        val updates = mapOf<String, Any>(
-//            "name" to name,
-//            "about" to about
-//        )
-//        userRef.child(userId).updateChildren(updates)
-//
-//    }
+
+
+    // fun to check user is created or not
+    fun getUserList(uid: String, callback: (List<UserInfo>) -> Unit) {
+        val userList = mutableListOf<UserInfo>()
+
+
+    firebaseDatabase.getReference("chats").child(uid).addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                userList.clear()
+                for (user in snapshot.children) {
+                    val temp = user.getValue(UserInfo::class.java)!!
+                    userList.add(temp)
+                }
+
+                callback(userList)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+
+    }
 
 
     /*
