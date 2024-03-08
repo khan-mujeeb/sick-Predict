@@ -44,4 +44,14 @@
     <color name="lavender">#8692f7</color>
     <color name="grey">#ff424242</color>
     <color name="light_gray">#D3D3D3</color>
+    <color name="darl_blue">#0C2D48</color>
+
+    <color name="hint">#2F2D2D</color>
+    <color name="sea_green">#1A936F</color>
+    <color name="yelloe">#cccc00</color>
+    <color name="ovlib_green">#3D550C</color>
+    <color name="midnight_blue">#145DA0</color>
+    <color name="baby_blue">#B1D4E0</color>
+    <color name="blue">#2E8BC0</color>
+    <color name="re">#6B728E</color>
 </resources>

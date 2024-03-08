@@ -1,18 +1,14 @@
 package com.example.sickpredict;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,20 +17,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.sickpredict.chat.DoctorListActivity;
+import com.example.sickpredict.user.DoctorListActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 public class PredictionActivity extends AppCompat {
 

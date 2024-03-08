@@ -75,6 +75,9 @@ public class LoginActivity extends AppCompat {
         forgotPassword = (TextView) findViewById(R.id.ForgotPassword);
         chk =(CheckBox) findViewById(R.id.chkBox1);
 
+
+        checkUserIsLoginedOrNot();
+
         chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -140,6 +143,15 @@ public class LoginActivity extends AppCompat {
         });
 
  */
+    }
+
+    private void checkUserIsLoginedOrNot() {
+        //Get current user
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(firebaseUser != null){
+            startActivity(new Intent(LoginActivity.this,UserDashboardActivity.class));
+            finish();
+        }
     }
 
     private void loginUser(String email, String pwd) {
