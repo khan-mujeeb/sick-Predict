@@ -16,7 +16,7 @@ class ViewModel(private val repository: Repository = Repository()): androidx.lif
     /*
     function to get User List
      */
-    fun getUserList(uid: String, callback: (uid: String, List<UserInfo>) -> Unit) {
+    fun getUserList(uid: String, callback: (uid: String, List<User>) -> Unit) {
         repository.getUserList(uid) { userList ->
             callback(uid, userList)
         }

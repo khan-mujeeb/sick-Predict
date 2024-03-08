@@ -219,7 +219,15 @@ public class RegisterActivity extends AppCompat {
 
                             //Enter user data in firebase database
                             HelperClass helperClass = new HelperClass(textFullName, textEmail, textDob, textGender, textMobile);
-                            User user = new User(textFullName, textEmail, textDob, textGender, textMobile, "", firebaseUser.getUid().toString());
+                            User user = new User(
+                                    textDob,
+                                    textFullName,
+                                    textEmail,
+                                    textGender,
+                                    textMobile,
+                                    "",
+                                    firebaseUser.getUid().toString()
+                            );
                             //result = editTextRegisterFullname.getText().toString();
 
                             //Extracting user reference from database for "Registered Users"

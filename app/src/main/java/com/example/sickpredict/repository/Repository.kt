@@ -4,7 +4,6 @@ import com.example.sickpredict.data.Message.Message
 import com.example.sickpredict.data.Message.UserInfo
 import com.example.sickpredict.data.user.User
 import com.example.sickpredict.utils.ConstUtils.message
-import com.example.sickpredict.utils.ConstUtils.userNode
 import com.example.sickpredict.utils.FirebaseUtils
 import com.example.sickpredict.utils.FirebaseUtils.chatRef
 import com.example.sickpredict.utils.FirebaseUtils.firebaseAuth
@@ -14,9 +13,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
 class Repository {
-
-
-
 
 
     /*
@@ -88,7 +84,7 @@ class Repository {
         user: User,
         receverUid: String,
 
-    ) {
+        ) {
         firebaseDatabase.reference
             .child("chats")
             .child(receverUid)
@@ -120,30 +116,29 @@ class Repository {
 //    }
 
 
-
-
     // fun to check user is created or not
-    fun getUserList(uid: String, callback: (List<UserInfo>) -> Unit) {
-        val userList = mutableListOf<UserInfo>()
+    fun getUserList(uid: String, callback: (List<User>) -> Unit) {
+        val userList = mutableListOf<User>()
 
 
-    firebaseDatabase.getReference("chats").child(uid).addValueEventListener(object : ValueEventListener {
+        firebaseDatabase.getReference("chats").child(uid).child("patientList")
+            .addValueEventListener(object : ValueEventListener {
 
-            override fun onDataChange(snapshot: DataSnapshot) {
-                userList.clear()
-                for (user in snapshot.children) {
-                    val temp = user.getValue(UserInfo::class.java)!!
-                    userList.add(temp)
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    userList.clear()
+                    for (user in snapshot.children) {
+                        val temp = user.getValue(User::class.java)!!
+                        userList.add(temp)
+                    }
+
+                    callback(userList)
                 }
 
-                callback(userList)
-            }
+                override fun onCancelled(error: DatabaseError) {
 
-            override fun onCancelled(error: DatabaseError) {
+                }
 
-            }
-
-        })
+            })
 
     }
 

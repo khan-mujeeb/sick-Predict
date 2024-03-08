@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8dp"
-    tools:context=".DoctorDashboardActivity">
+    tools:context=".doctor.DoctorDashboardActivity">
 
 
     <TextView
@@ -23,6 +23,7 @@
         android:paddingVertical="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/chat_item_view"
         />
 
