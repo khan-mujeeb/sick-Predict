@@ -1,7 +1,5 @@
 package com.example.sickpredict;
 
-import androidx.annotation.Nullable;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -9,10 +7,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,7 +19,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.sickpredict.user.DoctorListActivity;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
@@ -34,23 +32,17 @@ import java.util.Locale;
 
 public class PredictionActivity extends AppCompat {
 
+    private static final String TAG = "PredictionActivity";
+    private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
+    ArrayList<String> symptoms_array = new ArrayList<>();
     private ChipGroup chipGroup;
     private AutoCompleteTextView autoCompleteTextView;
     private List<String> symptomsList;
     private ArrayAdapter<String> adapter;
-
-    private EditText editSymptoms;
     private Button predict;
     private TextView result;
     private ImageButton microphone;
-    private static final String TAG = "PredictionActivity";
-
-    private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
-
-    private String url =  "https://ml-2-jpsk.onrender.com/predict";
-
-    ArrayList<String> symptoms_array = new ArrayList<>();
-
+    private String url = "https://ml-2-jpsk.onrender.com/predict";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +132,6 @@ public class PredictionActivity extends AppCompat {
             }
 
 
-
         });
 
     }
@@ -151,10 +142,9 @@ public class PredictionActivity extends AppCompat {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Hi Speak Your Symptoms");
 
-        try{
-            startActivityForResult(intent,REQUEST_CODE_SPEECH_INPUT);
-        }
-        catch (Exception e){
+        try {
+            startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
+        } catch (Exception e) {
             Toast.makeText(PredictionActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
@@ -170,7 +160,6 @@ public class PredictionActivity extends AppCompat {
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
                     //set to inputbox
-                    editSymptoms.setText(result.get(0));
                 }
                 break;
             }
@@ -180,6 +169,7 @@ public class PredictionActivity extends AppCompat {
     private void addChip(String text) {
         Chip chip = new Chip(this);
         chip.setText(text);
+        symptoms_array.add(text); // Add the symptom to the array list
         chip.setCloseIconVisible(true);
         chip.setOnCloseIconClickListener(new View.OnClickListener() {
             @Override
@@ -194,54 +184,52 @@ public class PredictionActivity extends AppCompat {
 
     protected void Prediction() {
 
-                String symp = editSymptoms.getText().toString().trim();
-                if (symptoms_array.isEmpty()) {
-                    Toast.makeText(PredictionActivity.this, "Please enter symptoms", Toast.LENGTH_LONG).show();
-                    return; // Exit early if symptoms are empty
-                }
+        if (symptoms_array.isEmpty()) {
+            Toast.makeText(PredictionActivity.this, "Please enter symptoms", Toast.LENGTH_LONG).show();
+            return; // Exit early if symptoms are empty
+        }
 
 
+        // Convert symptoms array to JSON array
 
-                // Convert symptoms array to JSON array
-
-                // Create JSON object with the symptoms array
-                JSONObject jsonBody = new JSONObject();
-                try {
-                    JSONArray jsonArray = new JSONArray(symptoms_array);
-                    // Put the JSONArray into the jsonBody
-                    jsonBody.put("symptoms", jsonArray);
+        // Create JSON object with the symptoms array
+        JSONObject jsonBody = new JSONObject();
+        try {
+            JSONArray jsonArray = new JSONArray(symptoms_array);
+            // Put the JSONArray into the jsonBody
+            jsonBody.put("symptoms", jsonArray);
 
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    return; // Exit early if there's an error creating the JSON object
-                }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return; // Exit early if there's an error creating the JSON object
+        }
 
-                // Hit the API
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    String data = response.getString("disease");
-                                    result.setText(data);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                    Toast.makeText(PredictionActivity.this, "Error parsing response", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                error.printStackTrace();
-                                Toast.makeText(PredictionActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+        // Hit the API
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String data = response.getString("disease");
+                            result.setText(data);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(PredictionActivity.this, "Error parsing response", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        Toast.makeText(PredictionActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-                // Add the request to the RequestQueue
-                RequestQueue queue = Volley.newRequestQueue(PredictionActivity.this);
-                queue.add(jsonObjectRequest);
+        // Add the request to the RequestQueue
+        RequestQueue queue = Volley.newRequestQueue(PredictionActivity.this);
+        queue.add(jsonObjectRequest);
 
     }
 }
