@@ -164,22 +164,8 @@ class UserChatActivity : AppCompatActivity() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-//        activeStatus("online")
-    }
 
-    override fun onPause() {
-        super.onPause()
-//        activeStatus("offline")
-    }
 
-    // updating active status of user
-//    fun activeStatus(status: String) {
-//        userRef.child(auth.uid.toString())
-//            .child("activeStatus")
-//            .setValue(status)
-//    }
 
 
 }

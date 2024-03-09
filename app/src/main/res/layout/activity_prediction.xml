@@ -12,15 +12,15 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:paddingVertical="30dp"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="wrap_content"
             android:background="@color/colorPrimary2">
 
             <TextView
                 android:id="@+id/textView_predict_disease_head"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:text="@string/predict_header"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -40,7 +40,13 @@
                 android:textColor="@color/white" />
         </RelativeLayout>
 
+
+
+
+<!--        inputui -->
         <androidx.cardview.widget.CardView
+
+            android:id="@+id/cardView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -59,24 +65,36 @@
                 android:id="@+id/relativeLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp"
                 android:layout_below="@+id/imageView1"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="30dp">
+                >
 
-                <EditText
-                    android:id="@+id/symptoms"
+                <LinearLayout
+                    android:minHeight="100dp"
+                    android:id="@+id/dropdown_menu"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:layout_alignBottom="@+id/imageButton_microphone"
-                    android:layout_alignParentTop="true"
-                    android:layout_toLeftOf="@+id/imageButton_microphone"
-                    android:background="@color/editTextBG"
-                    android:hint=""
-                    android:inputType="text"
-                    android:paddingLeft="20dp"
-                    android:textSize="15sp" />
+                    android:orientation="vertical">
+
+                    <AutoCompleteTextView
+
+                        android:id="@+id/autoCompleteTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="Search Symptoms"/>
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        app:singleLine="false" />
+                </LinearLayout>
 
 
                 <ImageButton
@@ -90,37 +108,52 @@
                     android:tint="@color/white"
                     tools:ignore="UseAppTint" />
 
+
+
+
             </RelativeLayout>
 
 
 
-            <Button
-                android:id="@+id/predict_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/relativeLayout1"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="100dp"
-                android:layout_marginBottom="20dp"
-                android:background="@color/colorPrimary2"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/predict_btn"
-                android:textColor="@color/white" />
 
         </androidx.cardview.widget.CardView>
 
 
-        <TextView
-            android:id="@+id/result"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="30dp"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            android:layout_marginTop="-40dp" />
+
+
+
+
 
     </LinearLayout>
+
+
+    <TextView
+        android:layout_above="@id/predict_button"
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="30dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:layout_marginTop="-40dp" />
+
+    <Button
+        android:layout_alignParentBottom="true"
+        android:id="@+id/predict_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="80dp"
+        android:background="@color/colorPrimary2"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/predict_btn"
+        android:textColor="@color/white" />
+
+
+
 
 </RelativeLayout>

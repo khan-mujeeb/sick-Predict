@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -19,15 +21,23 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sickpredict.user.DoctorListActivity;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class PredictionActivity extends AppCompat {
+
+    private ChipGroup chipGroup;
+    private AutoCompleteTextView autoCompleteTextView;
+    private List<String> symptomsList;
+    private ArrayAdapter<String> adapter;
 
     private EditText editSymptoms;
     private Button predict;
@@ -39,7 +49,7 @@ public class PredictionActivity extends AppCompat {
 
     private String url =  "https://sick-predict-app.onrender.com/predict";
 
-    ArrayList<String> symptoms_array = new ArrayList();
+    ArrayList<String> symptoms_array = new ArrayList<>();
 
 
     @Override
@@ -47,13 +57,70 @@ public class PredictionActivity extends AppCompat {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prediction);
 
-        editSymptoms = findViewById(R.id.symptoms);
 
         predict = findViewById(R.id.predict_button);
 
         microphone = findViewById(R.id.imageButton_microphone);
 
         result = findViewById(R.id.result);
+
+        chipGroup = findViewById(R.id.chipGroup);
+        autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
+
+        // Initialize symptoms list
+        symptomsList = new ArrayList<>();
+        // Add your symptoms to the list
+        symptomsList.add("eye_irritation");
+        symptomsList.add("running_nose");
+        symptomsList.add("stuffy_nose");
+        symptomsList.add("watery_eyes");
+        symptomsList.add("sneezing");
+        symptomsList.add("itchy_nose");
+        symptomsList.add("itchy_throat");
+        symptomsList.add("inflamed_throat");
+        symptomsList.add("watery_stools");
+        symptomsList.add("frequent_bowel_movements");
+        symptomsList.add("abdomen_pain");
+        symptomsList.add("nausea");
+        symptomsList.add("bloating");
+        symptomsList.add("bloody_stools");
+        symptomsList.add("fever");
+        symptomsList.add("headachae");
+        symptomsList.add("more_intense_pain");
+        symptomsList.add("fatigue");
+        symptomsList.add("dry_cough");
+        symptomsList.add("sore_throat");
+        symptomsList.add("cough");
+        symptomsList.add("vomiting");
+        symptomsList.add("heartburn");
+        symptomsList.add("indigestion");
+        symptomsList.add("change_in_apetite");
+        symptomsList.add("anemia");
+        symptomsList.add("rashes");
+        symptomsList.add("pain_behind_eyes");
+        symptomsList.add("pain_in_joints");
+        symptomsList.add("feeling_of_discomfort");
+        symptomsList.add("low energy");
+        symptomsList.add("cough_with_mucus");
+        symptomsList.add("greenish_yellow_bloody_mucus");
+        symptomsList.add("shortness_of_breath");
+        symptomsList.add("chills");
+        symptomsList.add("sweating");
+        symptomsList.add("shallow_breathing");
+        symptomsList.add("chest_pain");
+        // Add more symptoms as needed
+
+        // Initialize and set adapter for AutoCompleteTextView
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, symptomsList);
+        autoCompleteTextView.setAdapter(adapter);
+        autoCompleteTextView.setThreshold(1); // Show suggestions after 1 character is typed
+
+        // Set listener for adding chips when a symptom is selected
+        autoCompleteTextView.setOnItemClickListener((parent, view, position, id) -> {
+            String symptom = adapter.getItem(position);
+            addChip(symptom);
+            autoCompleteTextView.setText("");
+        });
 
         microphone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +134,7 @@ public class PredictionActivity extends AppCompat {
         predict.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
+//                Prediction();
                 Intent intent = new Intent(PredictionActivity.this, DoctorListActivity.class);
                 startActivity(intent);
             }
@@ -109,17 +177,30 @@ public class PredictionActivity extends AppCompat {
         }
     }
 
+    private void addChip(String text) {
+        Chip chip = new Chip(this);
+        chip.setText(text);
+        chip.setCloseIconVisible(true);
+        chip.setOnCloseIconClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chipGroup.removeView(chip);
+                symptoms_array.remove(text); // Remove the symptom from the array list
+            }
+        });
+        chipGroup.addView(chip);
+    }
+
 
     protected void Prediction() {
 
                 String symp = editSymptoms.getText().toString().trim();
-                if (symp.isEmpty()) {
+                if (symptoms_array.isEmpty()) {
                     Toast.makeText(PredictionActivity.this, "Please enter symptoms", Toast.LENGTH_LONG).show();
                     return; // Exit early if symptoms are empty
                 }
 
-                // Add the symptom to the array list
-                symptoms_array.add(symp);
+
 
                 // Convert symptoms array to JSON array
 
