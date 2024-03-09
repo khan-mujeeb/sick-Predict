@@ -47,7 +47,7 @@ public class PredictionActivity extends AppCompat {
 
     private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
 
-    private String url =  "https://sick-predict-app.onrender.com/predict";
+    private String url =  "https://ml-2-jpsk.onrender.com/predict";
 
     ArrayList<String> symptoms_array = new ArrayList<>();
 
@@ -134,9 +134,9 @@ public class PredictionActivity extends AppCompat {
         predict.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-//                Prediction();
-                Intent intent = new Intent(PredictionActivity.this, DoctorListActivity.class);
-                startActivity(intent);
+                Prediction();
+//                Intent intent = new Intent(PredictionActivity.this, DoctorListActivity.class);
+//                startActivity(intent);
             }
 
 

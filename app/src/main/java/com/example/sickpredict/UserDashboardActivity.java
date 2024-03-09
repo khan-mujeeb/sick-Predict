@@ -3,6 +3,7 @@ package com.example.sickpredict;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,26 +13,35 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.sickpredict.databinding.ActivityUserDashboardBinding;
+import com.example.sickpredict.doctor.DoctorProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class UserDashboardActivity extends AppCompat {
 
     private FirebaseAuth authProfile;
+    private ActivityUserDashboardBinding binding;
     private LinearLayout layout_predict, layout_vc;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_dashboard);
+
+        binding = ActivityUserDashboardBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(getResources().getString(R.string.app_name));
 
         authProfile = FirebaseAuth.getInstance();
 
-        layout_predict = findViewById(R.id.layout_predict);
-        layout_vc = findViewById(R.id.layout_vc);
+        layout_predict =binding.layoutPredict;
+
+        subscribeOnClickEvents();
+
+
 
         layout_predict.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,10 +51,40 @@ public class UserDashboardActivity extends AppCompat {
             }
         });
 
-        layout_vc.setOnClickListener(new View.OnClickListener() {
+        binding.layoutVc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(UserDashboardActivity.this, VIdeoConsultation.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void subscribeOnClickEvents() {
+
+        binding.doctorCard1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserDashboardActivity.this, DoctorProfileActivity.class);
+                intent.putExtra("doctorId", 0);
+                startActivity(intent);
+            }
+        });
+
+        binding.doctorCard2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserDashboardActivity.this, DoctorProfileActivity.class);
+                intent.putExtra("doctorId", 1);
+                startActivity(intent);
+            }
+        });
+
+        binding.doctorCard3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserDashboardActivity.this, DoctorProfileActivity.class);
+                intent.putExtra("doctorId", 2);
                 startActivity(intent);
             }
         });
