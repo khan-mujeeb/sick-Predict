@@ -77,4 +77,47 @@
     <string name="symptoms">लक्षणे</string>
     <string name="predict_btn">रोगाचा अंदाज लावा</string>
 
+
+    <string name="patient_s_name">रोगीचं नाव</string>
+    <string name="eye_irritation">डोळ्यांची_जळजळ</string>
+    <string name="running_nose">वाहणारी_नाक</string>
+    <string name="stuffy_nose">नाक भरून येणे</string>
+    <string name="watery_eyes">पाणी_डोळे</string>
+    <string name="sneezing">शिंका येणे</string>
+    <string name="itchy_nose">खाजरी_नाक</string>
+    <string name="itchy_throat">खाजरी_घसा</string>
+    <string name="inflamed_throat">फुजलेला_घसा</string>
+    <string name="watery_stools"></string>
+    <string name="frequent_bowel_movements">वारंवार_आंत्र_हालचाल</string>
+    <string name="abdomen_pain">पोटदुखी</string>
+    <string name="nausea">मळमळ</string>
+    <string name="bloating">सूज</string>
+    <string name="bloody_stools">रक्तरंजित मल</string>
+    <string name="fever">ताप</string>
+    <string name="headachae">डोकेदुखी</string>
+    <string name="more_intense_pain">अधिक_तीव्र_वेदना</string>
+    <string name="fatigue">थकवा</string>
+    <string name="dry_cough">कोरडा_खोकला</string>
+    <string name="sore_throat">घसा_खवखवणे</string>
+    <string name="cough">खोकला</string>
+    <string name="vomiting">उलट्या</string>
+    <string name="heartburn">छातीत जळजळ</string>
+    <string name="indigestion">अपचन</string>
+    <string name="change_in_apetite">भूक बदल</string>
+    <string name="anemia">ॲनिमिया</string>
+    <string name="rashes">पुरळ</string>
+    <string name="pain_behind_eyes">डडोळ्यांमागे_दुखी</string>
+    <string name="pain_in_joints">सांध्यात_दुखी</string>
+    <string name="feeling_of_discomfort">अस्वस्थ_जाणवणे</string>
+    <string name="low_energy">कमी ऊर्जा</string>
+    <string name="cough_with_mucus">श्लेष्मा सह खोकला</string>
+    <string name="greenish_yellow_bloody_mucus">हहिरवट_पिवळा_रक्तयुक्त_श्लेष्मा</string>
+    <string name="shortness_of_breath">उथळ श्वास घेणे</string>
+    <string name="chills">थंडी वाजून येणे</string>
+    <string name="sweating">घाम येणे</string>
+    <string name="shallow_breathing">उथळ_श्वास घेणे</string>
+    <string name="chest_pain">छाती दुखणे</string>
+    <string name="Allergy">एलर्जी</string>
+
+
 </resources>

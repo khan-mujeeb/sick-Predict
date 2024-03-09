@@ -76,6 +76,46 @@
     <string name="predict_desc">बीमारी का पूर्वानुमान लगाने के लिए कृपया अपने लक्षण दर्ज करें।</string>
     <string name="symptoms">लक्षण</string>
     <string name="predict_btn">बिमारी का अनुमान</string>
+    <string name="patient_s_name">मरीज का नाम</string>
+    <string name="eye_irritation">आंख में जलन</string>
+    <string name="running_nose">बहता नाक</string>
+    <string name="stuffy_nose">बंद नाक</string>
+    <string name="watery_eyes">नम आँखें</string>
+    <string name="sneezing">छींक आना</string>
+    <string name="itchy_nose">बेचैन नाक</string>
+    <string name="itchy_throat">गले में खारिश</string>
+    <string name="inflamed_throat">गले में सूजन</string>
+    <string name="watery_stools">पानीदार_मल</string>
+    <string name="frequent_bowel_movements">बारंबार_आंत्र_मूवमेंट</string>
+    <string name="abdomen_pain">पेट दर्द</string>
+    <string name="nausea">जी मिचलाना</string>
+    <string name="bloating">सूजन</string>
+    <string name="bloody_stools">मल में खून</string>
+    <string name="fever">बुखार</string>
+    <string name="headachae">सिरदर्द</string>
+    <string name="more_intense_pain">अधिक तीव्र दर्द</string>
+    <string name="fatigue">थकान</string>
+    <string name="dry_cough">सूखी खांसी</string>
+    <string name="sore_throat">गले में खराश</string>
+    <string name="cough">खांसी</string>
+    <string name="vomiting">उल्टी</string>
+    <string name="heartburn">हार्टबर्न</string>
+    <string name="indigestion">अपच</string>
+    <string name="change_in_apetite">भूख में परिवर्तन</string>
+    <string name="anemia">अनीमिया</string>
+    <string name="rashes">दाने</string>
+    <string name="pain_behind_eyes">आंखों के पीछे दर्द</string>
+    <string name="pain_in_joints">जोड़ों में दर्द</string>
+    <string name="feeling_of_discomfort">असहजता का अनुभव</string>
+    <string name="low_energy">कम ऊर्जा</string>
+    <string name="cough_with_mucus">बलगम वाली खांसी</string>
+    <string name="greenish_yellow_bloody_mucus">हरी-पीली खूनी बलगम</string>
+    <string name="shortness_of_breath">सांस लेने में कमी</string>
+    <string name="chills">ठंड</string>
+    <string name="sweating">पसीना</string>
+    <string name="shallow_breathing">गहरी सांस लेने में समस्या</string>
+    <string name="chest_pain">सीने में दर्द</string>
+    <string name="Allergy">एलर्जी</string>
 
 
 </resources>
