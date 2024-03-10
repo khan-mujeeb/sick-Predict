@@ -6,7 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import com.example.sickpredict.R
 
 object DialogUtils {
-    fun buildLoadingDialog(context: Context): AlertDialog {
+    public fun buildLoadingDialog(context: Context): AlertDialog {
         val builder = AlertDialog.Builder(context)
         builder.setView(LayoutInflater.from(context).inflate(R.layout.loading_screen, null))
         builder.setCancelable(false)

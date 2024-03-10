@@ -220,9 +220,9 @@ public class RegisterActivity extends AppCompat {
                             //Enter user data in firebase database
                             HelperClass helperClass = new HelperClass(textFullName, textEmail, textDob, textGender, textMobile);
                             User user = new User(
-                                    textDob,
                                     textFullName,
                                     textEmail,
+                                    textDob,
                                     textGender,
                                     textMobile,
                                     "",
