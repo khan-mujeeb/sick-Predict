@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.sickpredict.databinding.ActivityUserDashboardBinding;
 import com.example.sickpredict.doctor.DoctorProfileActivity;
+import com.example.sickpredict.user.HomeRemediesActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -85,6 +86,15 @@ public class UserDashboardActivity extends AppCompat {
             public void onClick(View view) {
                 Intent intent = new Intent(UserDashboardActivity.this, DoctorProfileActivity.class);
                 intent.putExtra("doctorId", 2);
+                startActivity(intent);
+            }
+        });
+
+
+        binding.homeRemedies.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserDashboardActivity.this, HomeRemediesActivity.class);
                 startActivity(intent);
             }
         });

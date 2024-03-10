@@ -35,11 +35,22 @@ android {
 
     buildFeatures {
         viewBinding true
+
+        compose true
+
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.8'
+    }
+
+
 }
 
 dependencies {
 
+    implementation("com.google.ai.client.generativeai:generativeai:0.1.2")
+    implementation 'com.github.mukeshsolanki:MarkdownView-Android:2.0.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     implementation 'androidx.appcompat:appcompat:1.6.1'

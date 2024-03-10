@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".user.HomeRemediesActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+
+            android:background="@color/colorPrimary2">
+
+            <ImageView
+                android:alpha="0.6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/remediesbg"/>
+
+            <LinearLayout
+                android:paddingHorizontal="10dp"
+                android:layout_width="match_parent"
+                android:layout_centerInParent="true"
+
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_predict_disease_head"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/there_home_remedies_for_everything"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:textSize="16sp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/textView_predict_disease_instruction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_remedies_can_cure_certain_minor_illnesses"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                    android:textColor="@color/darkblue" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <!--        inputui -->
+        <androidx.cardview.widget.CardView
+
+            android:id="@+id/cardView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="15dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="3dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true">
+
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageView1"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp">
+
+                <LinearLayout
+                    android:padding="8dp"
+                    android:id="@+id/dropdown_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical">
+
+                    <EditText
+
+                        android:id="@+id/et_problem"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="Enter Your Problem" />
+
+                </LinearLayout>
+
+
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.compose.ui.platform.ComposeView
+            android:layout_marginHorizontal="10dp"
+            android:layout_below="@id/cardView1"
+            android:id="@+id/composeView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            />
+    </LinearLayout>
+
+
+
+
+    <Button
+        android:id="@+id/predict_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/colorPrimary2"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/get_your_remedies"
+        android:textColor="@color/white" />
+
+
+</RelativeLayout>

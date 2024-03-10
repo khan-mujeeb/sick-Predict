@@ -23,6 +23,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -40,6 +42,10 @@ public class UploadProfilePicActivity extends AppCompat {
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri uriImage;
     private SwipeRefreshLayout swipeContainer;
+
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users");
+
+
 
 
     @Override
@@ -113,9 +119,13 @@ public class UploadProfilePicActivity extends AppCompat {
                             Uri downloadUri = uri;
                             firebaseUser = authProfile.getCurrentUser();
 
+
+
                             //Set the DP of user after uploaded
+
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setPhotoUri(downloadUri).build();
                             firebaseUser.updateProfile(profileUpdates);
+                            databaseReference.child(firebaseUser.getUid()).child("profile").setValue(downloadUri.toString());
                         }
                     });
 
