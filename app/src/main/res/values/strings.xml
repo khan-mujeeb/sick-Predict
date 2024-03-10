@@ -74,4 +74,7 @@
     <string name="symptoms">Symptoms</string>
     <string name="predict_btn">Predict Disease</string>
     <string name="patient_s_name">Patient\'s Name</string>
+    <string name="there_home_remedies_for_everything">Home remedies for everything</string>
+    <string name="home_remedies_can_cure_certain_minor_illnesses">Home Remedies can cure certain minor illnesses.</string>
+    <string name="get_your_remedies">Get Your Remedies</string>
 </resources>

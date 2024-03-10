@@ -17,10 +17,10 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".user.HomeRemediesActivity"
+            android:name=".user.PatientProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".user.UserProfileActivity"
+            android:name=".user.HomeRemediesActivity"
             android:exported="false" />
         <activity
             android:name=".doctor.DoctorProfileActivity"

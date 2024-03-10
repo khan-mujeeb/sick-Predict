@@ -2,12 +2,14 @@ package com.example.sickpredict.doctor
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.example.sickpredict.R
 import com.example.sickpredict.adapter.ChatAdapter
 import com.example.sickpredict.databinding.ActivityDoctorDashboard2Binding
 import com.example.sickpredict.repository.ViewModel
+import com.example.sickpredict.utils.DialogUtils
 import com.google.firebase.auth.FirebaseAuth
 
 class DoctorDashboardActivity : AppCompatActivity() {
@@ -35,7 +37,13 @@ class DoctorDashboardActivity : AppCompatActivity() {
         alertDailog.show()
         viewModel.getUserList(uid) { uid, userList ->
             alertDailog.dismiss()
-            println("mujeeb" + userList)
+            if (userList.isEmpty()) {
+                binding.rc.visibility = View.GONE
+                binding.errorMesage.visibility = View.VISIBLE
+            } else {
+                binding.rc.visibility = View.VISIBLE
+                binding.errorMesage.visibility = View.GONE
+            }
             binding.rc.adapter = ChatAdapter(this, userList)
         }
     }
@@ -44,6 +52,6 @@ class DoctorDashboardActivity : AppCompatActivity() {
 
         uid = FirebaseAuth.getInstance().uid!!
         viewModel = ViewModelProvider(this).get(ViewModel::class.java)
-        alertDailog = AlertDialog.Builder(this).create()
+        alertDailog = DialogUtils.buildLoadingDialog(this)
     }
 }
