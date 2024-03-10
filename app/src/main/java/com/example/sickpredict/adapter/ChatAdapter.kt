@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.sickpredict.R
 import com.example.sickpredict.data.Message.UserInfo
 import com.example.sickpredict.data.user.User
 import com.example.sickpredict.databinding.ChatItemViewBinding
 import com.example.sickpredict.doctor.DoctorChatActivity
+import com.example.sickpredict.user.PatientProfileActivity
 import com.example.sickpredict.user.UserChatActivity
 import com.google.firebase.database.FirebaseDatabase
 
@@ -30,20 +32,17 @@ class ChatAdapter(var context: Context,var list: List<User>):RecyclerView.Adapte
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         var lastMessage = ""
         var user = list[position]
-//        Glide.with(context).load(user.imgUri)
-//            .thumbnail(Glide.with(context).load(R.drawable.spinner))
-//            .into(holder.binding.userImg)
+        Glide.with(context).load(user.profile)
+            .thumbnail(Glide.with(context).load(R.drawable.spinner))
+            .placeholder(R.drawable.ic_baseline_person_24)
+            .into(holder.binding.userImg)
         holder.binding.userName.text = user.fullname
-
-//        55
-
 
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, DoctorChatActivity::class.java)
-            intent.putExtra("patientUid", user.uid)
-            intent.putExtra("patientName",user.fullname)
-            intent.putExtra("img",user.profile)
+
+            val intent = Intent(context, PatientProfileActivity::class.java)
+            intent.putExtra("user", user)
             context.startActivity(intent)
         }
     }

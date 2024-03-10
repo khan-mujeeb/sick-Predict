@@ -77,4 +77,8 @@
     <string name="there_home_remedies_for_everything">Home remedies for everything</string>
     <string name="home_remedies_can_cure_certain_minor_illnesses">Home Remedies can cure certain minor illnesses.</string>
     <string name="get_your_remedies">Get Your Remedies</string>
+    <string name="medical_history">Medical History</string>
+    <string name="call">Call</string>
+    <string name="message">Message</string>
+    <string name="no_patient_data_found">No Patient Data Found</string>
 </resources>
