@@ -6,16 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".PredictionActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+        <!--        inputui -->
         <RelativeLayout
-            android:paddingVertical="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary2">
+            android:background="@color/colorPrimary2"
+            android:paddingVertical="30dp">
 
             <TextView
                 android:id="@+id/textView_predict_disease_head"
@@ -32,51 +35,45 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView_predict_disease_head"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp"
                 android:text="@string/predict_desc"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                 android:textColor="@color/white" />
         </RelativeLayout>
 
-
-
-
-<!--        inputui -->
         <androidx.cardview.widget.CardView
 
             android:id="@+id/cardView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginBottom="150dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="50dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="150dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="3dp"
             app:cardPreventCornerOverlap="false"
             app:cardUseCompatPadding="true">
 
 
-
             <RelativeLayout
                 android:id="@+id/relativeLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="15dp"
-                android:paddingVertical="10dp"
                 android:layout_below="@+id/imageView1"
-                >
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp">
 
                 <LinearLayout
-                    android:minHeight="100dp"
                     android:id="@+id/dropdown_menu"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:minHeight="100dp"
                     android:orientation="vertical">
 
                     <AutoCompleteTextView
@@ -84,14 +81,14 @@
                         android:id="@+id/autoCompleteTextView"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:hint="Search Symptoms"/>
+                        android:hint="Search Symptoms" />
 
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/chipGroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         app:singleLine="false" />
                 </LinearLayout>
@@ -101,31 +98,22 @@
                     android:id="@+id/imageButton_microphone"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
                     android:background="@color/colorPrimary2"
                     android:padding="8dp"
-                    android:layout_alignParentRight="true"
                     android:src="@drawable/microphone1"
                     android:tint="@color/white"
                     tools:ignore="UseAppTint" />
 
 
-
-
             </RelativeLayout>
-
-
 
 
         </androidx.cardview.widget.CardView>
 
 
 
-
-
-
-
     </LinearLayout>
-
 
     <TextView
         android:layout_above="@id/predict_button"
@@ -152,8 +140,6 @@
         android:fontFamily="sans-serif-medium"
         android:text="@string/predict_btn"
         android:textColor="@color/white" />
-
-
 
 
 </RelativeLayout>

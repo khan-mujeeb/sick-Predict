@@ -26,6 +26,8 @@ public class VIdeoConsultation extends AppCompatActivity {
         edtUsername = findViewById(R.id.edtUsername);
         btnProceed = findViewById(R.id.btnProceed);
 
+
+        
         btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

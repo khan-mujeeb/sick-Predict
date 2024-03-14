@@ -3,10 +3,12 @@ package com.example.sickpredict;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,12 +44,44 @@ public class PredictionActivity extends AppCompat {
     private Button predict;
     private TextView result;
     private ImageButton microphone;
-    private String url = "https://ml-2-jpsk.onrender.com/predict";
+    private String url = "https://ml1-9y6p.onrender.com/predict";
+
+
+
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prediction);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         predict = findViewById(R.id.predict_button);
@@ -120,6 +154,9 @@ public class PredictionActivity extends AppCompat {
                 speak();
             }
         });
+
+
+
 
         // Inside your predict.setOnClickListener() method:
 
@@ -211,8 +248,9 @@ public class PredictionActivity extends AppCompat {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            String data = response.getString("disease");
-                            result.setText(data);
+                            String data = response.getString("prediction");
+                            String prob = response.getString("Accuracy");
+                            result.setText("Prediction: " + data + ", Accuracy: " + prob);
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(PredictionActivity.this, "Error parsing response", Toast.LENGTH_SHORT).show();

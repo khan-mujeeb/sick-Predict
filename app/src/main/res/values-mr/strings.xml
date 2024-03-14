@@ -118,6 +118,12 @@
     <string name="shallow_breathing">उथळ_श्वास घेणे</string>
     <string name="chest_pain">छाती दुखणे</string>
     <string name="Allergy">एलर्जी</string>
+    <string name="there_home_remedies_for_everything" >प्रत्येक गोष्टीसाठी_घरगुती_उपचार</string>
+    <string name="home_remedies_can_cure_certain_minor_illnesses" >घरगुती_उपचार_शक्य_बरा_निश्चित_किरकोळ_आजार"</string>
+    <string name="get_your_remedies" >तुमचे_उपाय मिळवा</string>
+    <string name="call" >कॉल करा</string>
+    <string name="message" >संदेश</string>
+    <string name="medical_history" >वैद्यकीय इतिहास</string>
 
 
 </resources>

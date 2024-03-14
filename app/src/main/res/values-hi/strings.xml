@@ -116,6 +116,13 @@
     <string name="shallow_breathing">गहरी सांस लेने में समस्या</string>
     <string name="chest_pain">सीने में दर्द</string>
     <string name="Allergy">एलर्जी</string>
+    <string name="there_home_remedies_for_everything" >हर चीज़ के लिए घरेलू उपचार</string>
+    <string name="home_remedies_can_cure_certain_minor_illnesses" >घरेलू उपचार से कुछ छोटी-मोटी बीमारियों को ठीक किया जा सकता है"</string>
+    <string name="get_your_remedies" >अपना_उपाय प्राप्त करें</string>
+    <string name="medical_history" >चिकित्सा का इतिहास</string>
+    <string name="call" >कॉल</string>
+    <string name="message" >संदेश</string>
+
 
 
 </resources>
