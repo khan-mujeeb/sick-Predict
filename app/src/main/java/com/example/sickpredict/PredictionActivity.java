@@ -1,6 +1,9 @@
 package com.example.sickpredict;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
@@ -21,19 +24,30 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.sickpredict.data.prediction.PreductionResult;
+import com.example.sickpredict.user.PredictionResultActivity;
+import com.example.sickpredict.utils.LoadingDialog;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
 public class PredictionActivity extends AppCompat {
 
+    String gender;
+    String age;
+    SharedPreferences sharedPref ;
+
+
+    private LoadingDialog loadingDialog;
     private static final String TAG = "PredictionActivity";
     private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
     ArrayList<String> symptoms_array = new ArrayList<>();
@@ -45,6 +59,8 @@ public class PredictionActivity extends AppCompat {
     private TextView result;
     private ImageButton microphone;
     private String url = "https://ml1-9y6p.onrender.com/predict";
+    private String medicineUrl = "https://drug-prediction-ghnj.onrender.com/predict";
+
 
 
 
@@ -61,29 +77,68 @@ public class PredictionActivity extends AppCompat {
 
 
 
+        variableInitialization();
+
+        // Initialize symptoms list
+        initalizeSymptomsList();
+        // Add more symptoms as needed
+
+        dropDownMenu();
+
+        subscribeClickListeners();
+
+    }
+
+    private void subscribeClickListeners() {
+
+        microphone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                speak();
+            }
+        });
 
 
 
+        predict.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+                loadingDialog.show();
+                Prediction();
+
+            }
 
 
+        });
+    }
+
+    private void dropDownMenu() {
+        // Initialize and set adapter for AutoCompleteTextView
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, symptomsList);
+        autoCompleteTextView.setAdapter(adapter);
+        autoCompleteTextView.setThreshold(1); // Show suggestions after 1 character is typed
+
+        // Set listener for adding chips when a symptom is selected
+        autoCompleteTextView.setOnItemClickListener((parent, view, position, id) -> {
+            String symptom = adapter.getItem(position);
+            addChip(symptom);
+            autoCompleteTextView.setText("");
+        });
+    }
+
+    private void variableInitialization() {
+
+        sharedPref = getApplicationContext().getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
+
+        gender = sharedPref.getString("gender", "Male");
+//        age = sharedPref.getString("dob", "10");
+        age = "22";
+
+        System.out.println("harshad" + gender + age);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        loadingDialog = new LoadingDialog(this);
         predict = findViewById(R.id.predict_button);
 
         microphone = findViewById(R.id.imageButton_microphone);
@@ -92,8 +147,9 @@ public class PredictionActivity extends AppCompat {
 
         chipGroup = findViewById(R.id.chipGroup);
         autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
+    }
 
-        // Initialize symptoms list
+    private void initalizeSymptomsList() {
         symptomsList = new ArrayList<>();
         // Add your symptoms to the list
         symptomsList.add(getString(R.string.eye_irritation));
@@ -134,43 +190,6 @@ public class PredictionActivity extends AppCompat {
         symptomsList.add(getString(R.string.sweating));
         symptomsList.add(getString(R.string.shallow_breathing));
         symptomsList.add(getString(R.string.chest_pain));
-        // Add more symptoms as needed
-
-        // Initialize and set adapter for AutoCompleteTextView
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, symptomsList);
-        autoCompleteTextView.setAdapter(adapter);
-        autoCompleteTextView.setThreshold(1); // Show suggestions after 1 character is typed
-
-        // Set listener for adding chips when a symptom is selected
-        autoCompleteTextView.setOnItemClickListener((parent, view, position, id) -> {
-            String symptom = adapter.getItem(position);
-            addChip(symptom);
-            autoCompleteTextView.setText("");
-        });
-
-        microphone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                speak();
-            }
-        });
-
-
-
-
-        // Inside your predict.setOnClickListener() method:
-
-        predict.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                Prediction();
-//                Intent intent = new Intent(PredictionActivity.this, DoctorListActivity.class);
-//                startActivity(intent);
-            }
-
-
-        });
-
     }
 
     private void speak() {
@@ -248,10 +267,21 @@ public class PredictionActivity extends AppCompat {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            System.out.println("mujeeb" + response);
                             String data = response.getString("prediction");
-                            String prob = response.getString("Accuracy");
-                            result.setText("Prediction: " + data + ", Accuracy: " + prob);
+                            String accuracy = response.getString("Accuracy");
+                            loadingDialog.hide();
+
+                            if (data.isEmpty()) {
+                                Toast.makeText(PredictionActivity.this, "No prediction found", Toast.LENGTH_SHORT).show();
+                                return;
+                            } else {
+                                medicinePrediction(data, 20, gender, accuracy);
+
+                            }
+//                            result.setText("Prediction: " + data + ", Accuracy: " + prob);
                         } catch (JSONException e) {
+                            loadingDialog.hide();
                             e.printStackTrace();
                             Toast.makeText(PredictionActivity.this, "Error parsing response", Toast.LENGTH_SHORT).show();
                         }
@@ -270,4 +300,81 @@ public class PredictionActivity extends AppCompat {
         queue.add(jsonObjectRequest);
 
     }
+
+
+
+    protected void medicinePrediction(String disease, int age, String gender, String accuracy) {
+
+
+        loadingDialog.show();
+
+        // Convert symptoms array to JSON array
+
+        // Create JSON object with the symptoms array
+        JSONObject jsonBody = new JSONObject();
+        try {
+
+            // Put the JSONArray into the jsonBody
+            jsonBody.put("disease", disease);
+            jsonBody.put("age", age);
+            jsonBody.put("gender", gender);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return; // Exit early if there's an error creating the JSON object
+        }
+
+        // Hit the API
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, medicineUrl, jsonBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+
+                            JSONArray data = response.getJSONArray("predicted_drugs");
+                            System.out.println("khan" + data);
+                            ArrayList<String> drugs = new ArrayList<>();
+                            for (int i = 0; i < data.length(); i++) {
+                                String drugsString = data.getString(i);
+                                // Split the drugsString based on the condition (number followed by closing parenthesis)
+                                String[] drugsArray = drugsString.split("(?<=\\d)\\s+(?=\\d)");
+                                drugs.addAll(Arrays.asList(drugsArray));
+                            }
+
+
+                            PreductionResult temp = new PreductionResult(
+                                    disease,
+                                    accuracy,
+                                    drugs
+                            );
+
+                            System.out.println("harshad" + drugs );
+
+                            Intent intent = new Intent(PredictionActivity.this, PredictionResultActivity.class);
+                            intent.putExtra("result", temp);
+                            startActivity(intent);
+                            loadingDialog.hide();
+                        } catch (JSONException e) {
+                            loadingDialog.hide();
+                            e.printStackTrace();
+                            Toast.makeText(PredictionActivity.this, "Error parsing response", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        Toast.makeText(PredictionActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        // Add the request to the RequestQueue
+        RequestQueue queue = Volley.newRequestQueue(PredictionActivity.this);
+        queue.add(jsonObjectRequest);
+
+    }
+
+
 }

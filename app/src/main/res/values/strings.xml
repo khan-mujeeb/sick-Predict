@@ -121,4 +121,5 @@
     <string name="call" />
     <string name="message" />
     <string name="no_patient_data_found" translatable="false" />
+    <string name="suggested_medicines">Suggested Medicines</string>
 </resources>
