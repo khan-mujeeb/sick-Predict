@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompat {
 
     FirebaseAuth authProfile;
     private LoadingDialog loadingDialog;
-
+    private String useID = "no-uid";
     private CardView crd1,crd2;
     private Button changeLang;
 
@@ -115,7 +115,15 @@ public class HomeActivity extends AppCompat {
     private void getUserData(FirebaseUser firebaseUser){
 
         loadingDialog.show();
-        String useID = firebaseUser.getUid();
+        if(firebaseUser != null) {
+            useID = firebaseUser.getUid();
+        }
+
+        else {
+            loadingDialog.hide();
+            Toast.makeText(HomeActivity.this, "Error Occurred", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         //Extracting user reference from database
         DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
