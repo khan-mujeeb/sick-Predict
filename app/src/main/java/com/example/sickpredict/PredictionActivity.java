@@ -1,17 +1,14 @@
 package com.example.sickpredict;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +26,6 @@ import com.example.sickpredict.user.PredictionResultActivity;
 import com.example.sickpredict.utils.LoadingDialog;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,28 +59,14 @@ public class PredictionActivity extends AppCompat {
 
 
 
-
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prediction);
 
-
-
         variableInitialization();
-
-        // Initialize symptoms list
         initalizeSymptomsList();
-        // Add more symptoms as needed
-
         dropDownMenu();
-
         subscribeClickListeners();
 
     }
@@ -267,7 +249,7 @@ public class PredictionActivity extends AppCompat {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            System.out.println("mujeeb" + response);
+//                            System.out.println("mujeeb" + response);
                             String data = response.getString("prediction");
                             String accuracy = response.getString("Accuracy");
                             loadingDialog.hide();
@@ -276,6 +258,7 @@ public class PredictionActivity extends AppCompat {
                                 Toast.makeText(PredictionActivity.this, "No prediction found", Toast.LENGTH_SHORT).show();
                                 return;
                             } else {
+                                loadingDialog.hide();
                                 medicinePrediction(data, 20, gender, accuracy);
 
                             }
@@ -346,6 +329,7 @@ public class PredictionActivity extends AppCompat {
                             PreductionResult temp = new PreductionResult(
                                     disease,
                                     accuracy,
+                                    symptomsList,
                                     drugs
                             );
 

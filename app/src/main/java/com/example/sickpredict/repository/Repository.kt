@@ -2,6 +2,7 @@ package com.example.sickpredict.repository
 
 import com.example.sickpredict.data.Message.Message
 import com.example.sickpredict.data.Message.UserInfo
+import com.example.sickpredict.data.prediction.PreductionResult
 import com.example.sickpredict.data.user.User
 import com.example.sickpredict.utils.ConstUtils.message
 import com.example.sickpredict.utils.FirebaseUtils
@@ -36,29 +37,6 @@ class Repository {
             .child(randomkey)
             .setValue(message)
             .addOnSuccessListener {
-
-//                val notification = PushNotification(
-//                    data = NotificationModel(
-//                        title = message.senderName,
-//                        body = message.message
-//                    ),
-//                    to = recever_fcm_token
-//                )
-
-
-//                ApiUtlis.getInstance().sendNotification(notification).enqueue(object : retrofit2.Callback<PushNotification>{
-//                    override fun onResponse(
-//                        call: Call<PushNotification>,
-//                        response: Response<PushNotification>
-//                    ) {
-//
-//                    }
-//
-//                    override fun onFailure(call: Call<PushNotification>, t: Throwable) {
-//                        println("error khan ${t.message}")
-//                    }
-//
-//                })
 
                 firebaseDatabase.reference
                     .child("chats")
@@ -96,24 +74,6 @@ class Repository {
             }
     }
 
-    /*
-    get fcm tokken
-     */
-//    fun getFcmToken(receverId: String, callback: (String) -> Unit) {
-//        userRef.child(receverId).addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                if (snapshot.exists()) {
-//                    val user = snapshot.getValue(UserInfo::class.java)
-//                    callback(user!!.fcm_token)
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                TODO("Not yet implemented")
-//            }
-//
-//        })
-//    }
 
 
     // fun to check user is created or not
@@ -159,31 +119,17 @@ class Repository {
         chatRef.child(reciverRoom).child(message).child(messageId).removeValue()
     }
 
-    /*
-    add contact
-     */
-    fun addContact(user: UserInfo) {
-        val randomkey = firebaseDatabase.reference.push().key!!
-        FirebaseUtils.contactRef.child(firebaseAuth.currentUser?.phoneNumber.toString())
-            .child(randomkey)
-            .setValue(user)
+
+
+
+    fun addPatientRecord(doctorUid: String, patientUid: String, patientRecord: PreductionResult) {
+        firebaseDatabase.reference
+            .child("chats")
+            .child(doctorUid)
+            .child("patientRecords")
+            .child(patientUid)
+            .child(firebaseDatabase.reference.push().key.toString())
+            .setValue(patientRecord)
     }
-
-    /*
-    upload data
-     */
-//    fun uploadFileToStorage(uri: Uri, callback: (String?) -> Unit) {
-//        val reference = storageRef.child(Date().time.toString())
-//        reference.putFile(uri).addOnCompleteListener { task ->
-//            if (task.isSuccessful) {
-//                reference.downloadUrl.addOnSuccessListener { uri ->
-//                    callback(uri.toString())
-//                }
-//            } else {
-//                callback(null)
-//            }
-//        }
-//    }
-
 
 }

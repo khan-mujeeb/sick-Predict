@@ -1,10 +1,9 @@
 package com.example.sickpredict.user
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.example.sickpredict.R
+import androidx.appcompat.app.AppCompatActivity
 import com.example.sickpredict.adapter.MedicineAdapter
 import com.example.sickpredict.data.prediction.PreductionResult
 import com.example.sickpredict.databinding.ActivityPredictionResultBinding
@@ -26,7 +25,7 @@ class PredictionResultActivity : AppCompatActivity() {
 
     private fun subscribeUi() {
 
-        println("wini ${prediction.prediction} ${prediction.accuracy} ${prediction.medcines}")
+//        println("wini ${prediction.prediction} ${prediction.accuracy} ${prediction.medcines}")
         binding.accuracy.text = prediction.accuracy
         binding.deseaseName.text = prediction.prediction
 
@@ -34,7 +33,7 @@ class PredictionResultActivity : AppCompatActivity() {
             binding.recyclerViewSuggestedMedicines.visibility = View.GONE
             binding.noMedicinesFound.visibility = View.VISIBLE
         } else {
-            print("pillu ${prediction.medcines.size}")
+//            print("pillu ${prediction.medcines.size}")
             binding.recyclerViewSuggestedMedicines.visibility = View.VISIBLE
             binding.recyclerViewSuggestedMedicines.adapter = MedicineAdapter(prediction.medcines)
             binding.noMedicinesFound.visibility = View.GONE
@@ -49,7 +48,9 @@ class PredictionResultActivity : AppCompatActivity() {
         }
 
         binding.consultDoctor.setOnClickListener {
-            startActivity(Intent(this, DoctorListActivity::class.java))
+            val intent = Intent(this, DoctorListActivity::class.java)
+            intent.putExtra("result", prediction)
+            startActivity(intent)
         }
     }
 

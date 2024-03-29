@@ -51,6 +51,7 @@ class DoctorChatActivity : AppCompatActivity() {
     }
 
 
+
     private fun subscribeUi() {
         // setting username and dp
         binding.personName.text = name
@@ -130,6 +131,9 @@ class DoctorChatActivity : AppCompatActivity() {
     }
 
     private fun variableInit() {
+
+
+
         recever_fcm_token = "fegtrhthy"
         auth = FirebaseUtils.firebaseAuth
         database = FirebaseUtils.firebaseDatabase

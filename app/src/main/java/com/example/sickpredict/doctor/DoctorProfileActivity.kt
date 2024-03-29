@@ -1,9 +1,8 @@
 package com.example.sickpredict.doctor
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.sickpredict.R
+import androidx.appcompat.app.AppCompatActivity
 import com.example.sickpredict.databinding.ActivityDoctorProfileBinding
 import com.example.sickpredict.user.UserChatActivity
 import com.example.sickpredict.utils.DoctorData
@@ -29,6 +28,8 @@ class DoctorProfileActivity : AppCompatActivity() {
     private fun subscribeClickListner() {
         binding.chat.setOnClickListener {
             val intent = Intent(this, UserChatActivity::class.java)
+            intent.putExtra("from", "user")
+
             intent.putExtra("name", DoctorData.doctorList[doctorUid].name)
             intent.putExtra("uid", DoctorData.doctorList[doctorUid].uid)
             startActivity(intent)

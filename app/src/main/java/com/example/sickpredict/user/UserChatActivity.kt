@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.sickpredict.adapter.MessageAdapter
 import com.example.sickpredict.data.Message.Message
+import com.example.sickpredict.data.prediction.PreductionResult
 import com.example.sickpredict.data.user.User
 import com.example.sickpredict.databinding.ActivityUserChatBinding
 import com.example.sickpredict.repository.ViewModel
@@ -20,6 +21,7 @@ import java.util.Date
 
 class UserChatActivity : AppCompatActivity() {
 
+    var from = ""
     lateinit var binding: ActivityUserChatBinding
 
     // firebase variable's
@@ -47,6 +49,21 @@ class UserChatActivity : AppCompatActivity() {
         subscribeOnClickEvents()
         variableInit()
         subscribeUi()
+
+        if (from == "doctor") {
+            val prediction = intent.getSerializableExtra("result") as? PreductionResult
+            prediction?.let {
+                addMedicalHstory(it)
+            }
+        }
+
+    }
+
+    private fun addMedicalHstory(prediction: PreductionResult) {
+        viewModel.addPatientRecord(
+            doctorUid = reciverUid,
+            patientUid = senderUid,
+            patientRecord = prediction)
     }
 
 
@@ -147,6 +164,12 @@ class UserChatActivity : AppCompatActivity() {
     }
 
     private fun variableInit() {
+        from = intent.getStringExtra("from")!!
+
+
+
+
+
         recever_fcm_token = "fegtrhthy"
         auth = FirebaseUtils.firebaseAuth
         database = FirebaseUtils.firebaseDatabase

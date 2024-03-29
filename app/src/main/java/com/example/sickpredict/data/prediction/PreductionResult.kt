@@ -7,6 +7,6 @@ import java.io.Serializable
 data class PreductionResult(
     val prediction: String = "",
     val accuracy: String = "",
-
+    val symtomps: List<String> = listOf(),
     val medcines: ArrayList<String> = ArrayList()
 ): Serializable

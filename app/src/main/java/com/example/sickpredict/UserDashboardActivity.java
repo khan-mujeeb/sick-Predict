@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.sickpredict.data.prediction.PreductionResult;
 import com.example.sickpredict.databinding.ActivityUserDashboardBinding;
 import com.example.sickpredict.doctor.DoctorProfileActivity;
 import com.example.sickpredict.user.HomeRemediesActivity;
@@ -62,11 +63,11 @@ public class UserDashboardActivity extends AppCompat {
     }
 
     private void subscribeOnClickEvents() {
+        Intent intent = new Intent(UserDashboardActivity.this, DoctorProfileActivity.class);
 
         binding.doctorCard1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UserDashboardActivity.this, DoctorProfileActivity.class);
                 intent.putExtra("doctorId", 0);
                 startActivity(intent);
             }
@@ -75,7 +76,7 @@ public class UserDashboardActivity extends AppCompat {
         binding.doctorCard2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UserDashboardActivity.this, DoctorProfileActivity.class);
+                intent.putExtra("from", "user");
                 intent.putExtra("doctorId", 1);
                 startActivity(intent);
             }
@@ -84,7 +85,7 @@ public class UserDashboardActivity extends AppCompat {
         binding.doctorCard3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UserDashboardActivity.this, DoctorProfileActivity.class);
+                intent.putExtra("from", "user");
                 intent.putExtra("doctorId", 2);
                 startActivity(intent);
             }
