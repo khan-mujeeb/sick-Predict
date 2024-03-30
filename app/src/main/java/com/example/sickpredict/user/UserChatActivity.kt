@@ -54,6 +54,29 @@ class UserChatActivity : AppCompatActivity() {
             val prediction = intent.getSerializableExtra("result") as? PreductionResult
             prediction?.let {
                 addMedicalHstory(it)
+
+                val predictionMsg = Message(
+                    message = "",
+                    senderUid,
+                    Date().time,
+                    database.reference.push().key!!,
+                    "0000000000000000",
+                    "prescription",
+                    prediction = it.prediction,
+                    accuracy = it.accuracy,
+                    symtomps = it.symtomps.toString(),
+                    medcines = it.medcines.toString()
+
+                )
+                viewModel.sendMessages(
+                    senderRoom = senderRoom,
+                    reciverRoom = reciverRoom,
+                    randomkey = database.reference.push().key!!,
+                    message = predictionMsg,
+                    recever_fcm_token = recever_fcm_token,
+                    receverUid = reciverUid
+                )
+
             }
         }
 

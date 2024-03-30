@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.sickpredict.R
 import com.example.sickpredict.data.Message.Message
+import com.example.sickpredict.databinding.PredictionItemviewBinding
 import com.example.sickpredict.databinding.ReceverItemViewBinding
 import com.example.sickpredict.databinding.SentItemViewBinding
 import com.example.sickpredict.utils.ConstUtils.cancel
@@ -26,11 +27,16 @@ class MessageAdapter(
 
 
     val ITEM_SENT = 1
+    val PRESCRPTION_SENT = 3
     val ITEM_RECEIVE = 2
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return if (viewType == ITEM_SENT)
             SentViewHolder(
                 LayoutInflater.from(context).inflate(R.layout.sent_item_view, parent, false)
+            )
+        else if (viewType == PRESCRPTION_SENT)
+            PredictionViewHolder(
+                LayoutInflater.from(context).inflate(R.layout.prediction_itemview, parent, false)
             )
         else
             ReceiverViewHolder(
@@ -44,67 +50,27 @@ class MessageAdapter(
         if (type == ITEM_SENT) {
             val viewHolder = holder as SentViewHolder
             viewHolder.binding.textSend.text = message.message
-        } else {
+        }
+        else if (type == PRESCRPTION_SENT) {
+            val viewHolder = holder as PredictionViewHolder
+            viewHolder.binding.textSend.text = message.prediction
+            viewHolder.binding.medicinesList.text = message.medcines.toString()
+            viewHolder.binding.symtomsList.text = message.symtomps.toString()
+        }
+
+        else {
             val viewHolder = holder as ReceiverViewHolder
             viewHolder.binding.textReceive.text = message.message
         }
 
 
-        holder.itemView.setOnLongClickListener {
-            if (type == ITEM_SENT) {
-                val builder = AlertDialog.Builder(holder.itemView.context)
-                builder.setMessage("Do you want to delete this message?")
-
-                builder.setNegativeButton("Delete for everyone") { _, _ ->
-
-                    deleteSenderMessage(message)
-
-//                    viewModel.deleteReciverMessage(
-//                        reciverRoom = reciverRoom,
-//                        messageId = message.messageId
-//                    )
-                    notifyItemRemoved(position)
-
-                }
-
-                builder.setPositiveButton("Delete for me") { _, _ ->
-                    deleteSenderMessage(message)
-                    notifyItemRemoved(position)
-                }
-
-
-                builder.setNeutralButton(cancel) { _, _ ->
-
-                }
-                builder.create().show()
-                true
-            } else {
-                val builder = AlertDialog.Builder(holder.itemView.context)
-                builder.setMessage("Do you want to delete this message?")
-                builder.setPositiveButton("Delete for me") { _, _ ->
-                    deleteSenderMessage(message)
-                }
-                builder.setNegativeButton(cancel) { _, _ ->
-                }
-                builder.create().show()
-                true
-            }
-        }
-
-    }
-
-    private fun deleteSenderMessage(message: Message) {
-//        viewModel.deleteSenderMessage(
-//            senderRoom = senderRoom,
-//            messageId = message.messageId
-//        )
 
     }
 
 
     override fun getItemViewType(position: Int): Int {
         return if (FirebaseUtils.firebaseAuth.uid == list[position].sendUid)
-            ITEM_SENT
+            return if(list[position].type == "prescription"  ) PRESCRPTION_SENT else ITEM_SENT
         else
             ITEM_RECEIVE
     }
@@ -115,6 +81,10 @@ class MessageAdapter(
 
     inner class ReceiverViewHolder(view: View) : ViewHolder(view) {
         var binding = ReceverItemViewBinding.bind(view)
+    }
+
+    inner class PredictionViewHolder(view: View) : ViewHolder(view) {
+        var binding = PredictionItemviewBinding.bind(view)
     }
 
     override fun getItemCount(): Int {

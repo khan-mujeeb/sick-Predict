@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.sickpredict.utils.utils;
 import androidx.annotation.Nullable;
 
 import com.android.volley.Request;
@@ -31,8 +31,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -326,10 +330,12 @@ public class PredictionActivity extends AppCompat {
                             }
 
 
+
                             PreductionResult temp = new PreductionResult(
+                                    getCurrentDateTime(),
                                     disease,
                                     accuracy,
-                                    symptomsList,
+                                    symptoms_array,
                                     drugs
                             );
 
@@ -358,6 +364,11 @@ public class PredictionActivity extends AppCompat {
         RequestQueue queue = Volley.newRequestQueue(PredictionActivity.this);
         queue.add(jsonObjectRequest);
 
+    }
+
+    String getCurrentDateTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return sdf.format(new Date());
     }
 
 

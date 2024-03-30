@@ -5,6 +5,11 @@ data class Message(
     var sendUid:String = "",
     var timeSTamp: Long = 0,
     var messageId: String = "",
-    var senderName: String = ""
+    var senderName: String = "",
+    var type: String = "",
+    var prediction : String = "",
+    var accuracy: String = "",
+    var symtomps: String = "",
+    var medcines: String = ""
 )
 
