@@ -11,6 +11,7 @@ import com.example.sickpredict.utils.FirebaseUtils.firebaseAuth
 import com.example.sickpredict.utils.FirebaseUtils.firebaseDatabase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class Repository {
@@ -130,6 +131,23 @@ class Repository {
             .child(patientUid)
             .child(firebaseDatabase.reference.push().key.toString())
             .setValue(patientRecord)
+    }
+
+    fun readPatientRecord(doctorUid: String, patientUid: String, callback: (List<PreductionResult>?) -> Unit) {
+        val database = FirebaseDatabase.getInstance()
+        val reference = database.reference.child("chats").child(doctorUid).child("patientRecords").child(patientUid)
+
+        reference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val records = snapshot.children.mapNotNull { it.getValue(PreductionResult::class.java) }
+                callback(records)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle error
+                callback(null)
+            }
+        })
     }
 
 }

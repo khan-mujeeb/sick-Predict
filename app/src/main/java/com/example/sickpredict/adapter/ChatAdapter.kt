@@ -32,10 +32,11 @@ class ChatAdapter(var context: Context,var list: List<User>):RecyclerView.Adapte
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         var lastMessage = ""
         var user = list[position]
+
         Glide.with(context).load(user.profile)
-            .thumbnail(Glide.with(context).load(R.drawable.spinner))
             .placeholder(R.drawable.ic_baseline_person_24)
             .into(holder.binding.userImg)
+
         holder.binding.userName.text = user.fullname
 
 

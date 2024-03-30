@@ -30,6 +30,10 @@ class DoctorListActivity : AppCompatActivity() {
         prediction = intent.getSerializableExtra("result") as PreductionResult
     }
 
+
+
+
+
     private fun subscribeClickListner() {
         val intent = Intent(this, UserChatActivity::class.java)
         intent.putExtra("result", prediction)

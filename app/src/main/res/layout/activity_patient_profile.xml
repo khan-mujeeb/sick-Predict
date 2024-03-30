@@ -63,7 +63,7 @@
         android:elevation="10dp"
         app:cardCornerRadius="10dp"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="80dp">
 
 
         <LinearLayout
@@ -76,13 +76,13 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_height="match_parent"
-                android:layout_weight="0.8">
+                android:layout_weight="0.4">
 
                 <TextView
                     android:textColor="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DOB"
+                    android:text="Age"
                     android:textSize="18sp" />
 
                 <TextView
@@ -161,7 +161,7 @@
             android:textColor="@color/hint"
             android:layout_marginTop="60dp"
             android:layout_alignParentTop="true"
-            android:text="@string/medical_history"
+            android:text="medical history"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -169,10 +169,26 @@
             android:id="@+id/recordsRc"
             android:layout_width="match_parent"
             android:layout_below="@id/hint"
+            tools:listitem="@layout/item_patient_record"
+            android:visibility="gone"
             android:layout_above="@id/btnLayout"
             android:layout_marginVertical="5dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/noRecord"
+            android:layout_width="match_parent"
+            android:layout_below="@id/hint"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textColor="@color/black"
+
+            android:visibility="gone"
+            android:layout_above="@id/btnLayout"
+            android:text="No Previous Medical Records Found"
+            android:layout_marginVertical="5dp"
+            android:layout_height="wrap_content"/>
 
         <LinearLayout
             android:id="@+id/btnLayout"

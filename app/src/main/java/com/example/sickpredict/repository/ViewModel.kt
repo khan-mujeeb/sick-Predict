@@ -42,4 +42,14 @@ class ViewModel(private val repository: Repository = Repository()): androidx.lif
     fun addPatientRecord(doctorUid: String, patientUid: String, patientRecord: PreductionResult) {
         repository.addPatientRecord(doctorUid, patientUid, patientRecord)
     }
+
+    /*
+    read patient record
+     */
+    fun readPatientRecord(doctorUid: String, patientUid: String, callback: (List<PreductionResult>?) -> Unit) {
+        repository.readPatientRecord(doctorUid, patientUid) { records ->
+            callback(records)
+        }
+    }
+
 }
