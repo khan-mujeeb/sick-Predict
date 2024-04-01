@@ -46,7 +46,7 @@ class PatientProfileActivity : AppCompatActivity() {
             val intent = Intent(this, DoctorChatActivity::class.java)
             intent.putExtra("patientUid", user.uid)
             intent.putExtra("patientName", user.fullname)
-            intent.putExtra("img", user.profile)
+            intent.putExtra("patientProfile", user.profile)
             startActivity(intent)
 
         }

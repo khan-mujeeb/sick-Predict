@@ -139,7 +139,7 @@ public class UserDashboardActivity extends AppCompat {
         }  else if (id == R.id.menu_logout) {
             authProfile.signOut();
             Toast.makeText(UserDashboardActivity.this, "Logged out!",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(UserDashboardActivity.this,LoginActivity.class);
+            Intent intent = new Intent(UserDashboardActivity.this,HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();

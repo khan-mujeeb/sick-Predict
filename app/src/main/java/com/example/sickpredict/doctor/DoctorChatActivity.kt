@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.example.sickpredict.R
 import com.example.sickpredict.adapter.MessageAdapter
 import com.example.sickpredict.data.Message.Message
 import com.example.sickpredict.databinding.ActivityDoctorChatBinding
@@ -55,7 +57,7 @@ class DoctorChatActivity : AppCompatActivity() {
     private fun subscribeUi() {
         // setting username and dp
         binding.personName.text = name
-//        Glide.with(this).load(img).into(binding.personImg)
+        Glide.with(this).load(img).placeholder(R.drawable.ic_baseline_person_24).into(binding.personImg)
 
 
         // fetching most recent message from firebase realtime database
@@ -144,7 +146,7 @@ class DoctorChatActivity : AppCompatActivity() {
         senderRoom = senderUid + reciverUid
         reciverRoom = reciverUid + senderUid
 
-//        img = intent.getStringExtra("img")!!
+        img = intent.getStringExtra("patientProfile")!!
         name = intent.getStringExtra("patientName")!!
         list = ArrayList()
 

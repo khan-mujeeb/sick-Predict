@@ -1,7 +1,6 @@
 package com.example.sickpredict.adapter
 
 
-import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import com.example.sickpredict.data.Message.Message
 import com.example.sickpredict.databinding.PredictionItemviewBinding
 import com.example.sickpredict.databinding.ReceverItemViewBinding
 import com.example.sickpredict.databinding.SentItemViewBinding
-import com.example.sickpredict.utils.ConstUtils.cancel
 import com.example.sickpredict.utils.FirebaseUtils
 
 class MessageAdapter(
@@ -28,6 +26,7 @@ class MessageAdapter(
 
     val ITEM_SENT = 1
     val PRESCRPTION_SENT = 3
+    val PRESCRPTION_RECEIVE = 4
     val ITEM_RECEIVE = 2
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return if (viewType == ITEM_SENT)
@@ -37,6 +36,10 @@ class MessageAdapter(
         else if (viewType == PRESCRPTION_SENT)
             PredictionViewHolder(
                 LayoutInflater.from(context).inflate(R.layout.prediction_itemview, parent, false)
+            )
+        else if (viewType == PRESCRPTION_RECEIVE)
+            PredictionViewHolder(
+                LayoutInflater.from(context).inflate(R.layout.prescrption_receive_itemview, parent, false)
             )
         else
             ReceiverViewHolder(
@@ -52,6 +55,11 @@ class MessageAdapter(
             viewHolder.binding.textSend.text = message.message
         }
         else if (type == PRESCRPTION_SENT) {
+            val viewHolder = holder as PredictionViewHolder
+            viewHolder.binding.textSend.text = message.prediction
+            viewHolder.binding.medicinesList.text = message.medcines.toString()
+            viewHolder.binding.symtomsList.text = message.symtomps.toString()
+        }else if (type == PRESCRPTION_RECEIVE) {
             val viewHolder = holder as PredictionViewHolder
             viewHolder.binding.textSend.text = message.prediction
             viewHolder.binding.medicinesList.text = message.medcines.toString()
@@ -72,7 +80,7 @@ class MessageAdapter(
         return if (FirebaseUtils.firebaseAuth.uid == list[position].sendUid)
             return if(list[position].type == "prescription"  ) PRESCRPTION_SENT else ITEM_SENT
         else
-            ITEM_RECEIVE
+            return if(list[position].type == "prescription"  ) PRESCRPTION_RECEIVE else ITEM_RECEIVE
     }
 
     inner class SentViewHolder(view: View) : ViewHolder(view) {
