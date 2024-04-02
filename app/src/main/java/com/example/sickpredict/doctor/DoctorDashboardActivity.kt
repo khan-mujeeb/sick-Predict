@@ -1,11 +1,10 @@
 package com.example.sickpredict.doctor
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.sickpredict.R
 import com.example.sickpredict.adapter.ChatAdapter
 import com.example.sickpredict.databinding.ActivityDoctorDashboard2Binding
 import com.example.sickpredict.repository.ViewModel

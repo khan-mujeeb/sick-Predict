@@ -92,10 +92,11 @@
         android:background="#FDFDFD">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cameraImg"
             android:layout_marginStart="15dp"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:background="@drawable/outline_emoji_emotions_24"/>
+            android:background="@drawable/baseline_image_24"/>
 
         <EditText
             android:layout_marginStart="10dp"

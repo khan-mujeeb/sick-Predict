@@ -2,6 +2,7 @@ package com.example.sickpredict.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,8 @@ class ChatAdapter(var context: Context,var list: List<User>):RecyclerView.Adapte
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         var lastMessage = ""
         var user = list[position]
+
+
 
         Glide.with(context).load(user.profile)
             .placeholder(R.drawable.ic_baseline_person_24)

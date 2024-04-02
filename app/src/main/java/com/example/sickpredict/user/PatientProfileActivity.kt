@@ -73,7 +73,9 @@ class PatientProfileActivity : AppCompatActivity() {
         FirebaseAuth.getInstance().currentUser!!.photoUrl
 
 
-        val age = getCurrentYear() -  user.dob.slice(5..8).toInt()
+        val reversedDob = user.dob.reversed()
+        val year = reversedDob.take(4).reversed().toInt()
+        val age = getCurrentYear() - year
 
         binding.patientName.text = user.fullname
         binding.age.text = age.toString()

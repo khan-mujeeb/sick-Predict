@@ -39,7 +39,7 @@ class DoctorProfileActivity : AppCompatActivity() {
     private fun subscribeUi() {
         binding.drName.text = DoctorData.doctorList[doctorUid].name
         binding.qualification.text = DoctorData.doctorList[doctorUid].qualification
-        binding.exp.text = DoctorData.doctorList[doctorUid].experience  + "exp"
+        binding.exp.text = DoctorData.doctorList[doctorUid].experience  + " exp"
         DoctorData.doctorList[doctorUid].specalization.forEach {
             addChip(it)
         }
