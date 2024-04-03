@@ -2,11 +2,13 @@ package com.example.sickpredict.user
 
 import android.content.Intent
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sickpredict.adapter.MedicineAdapter
 import com.example.sickpredict.data.prediction.PreductionResult
 import com.example.sickpredict.databinding.ActivityPredictionResultBinding
+import java.util.Locale
 
 class PredictionResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPredictionResultBinding
@@ -42,12 +44,14 @@ class PredictionResultActivity : AppCompatActivity() {
 
     private fun subscribeListeners() {
 
+
         binding.getAccuracy.setOnClickListener {
             binding.getAccuracy.visibility = View.GONE
             binding.accuracy.visibility = View.VISIBLE
         }
 
         binding.consultDoctor.setOnClickListener {
+
             val intent = Intent(this, DoctorListActivity::class.java)
             intent.putExtra("result", prediction)
             startActivity(intent)

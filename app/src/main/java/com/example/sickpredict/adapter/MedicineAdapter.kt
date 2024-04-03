@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sickpredict.R
 
-class MedicineAdapter(private val medicines: ArrayList<String>) :
+class MedicineAdapter(private val medicines: List<String>) :
     RecyclerView.Adapter<MedicineAdapter.MedicineViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedicineViewHolder {

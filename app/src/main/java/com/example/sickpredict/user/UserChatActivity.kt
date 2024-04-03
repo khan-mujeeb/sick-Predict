@@ -91,6 +91,9 @@ class UserChatActivity : AppCompatActivity() {
 
 
     private fun subscribeUi() {
+
+        supportActionBar?.hide()
+
         // setting username and dp
         binding.personName.text = name
 //        Glide.with(this).load(img).into(binding.personImg)

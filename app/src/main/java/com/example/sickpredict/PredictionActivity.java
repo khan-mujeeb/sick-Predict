@@ -12,7 +12,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.sickpredict.utils.utils;
+
+
 import androidx.annotation.Nullable;
 
 import com.android.volley.Request;
@@ -22,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sickpredict.data.prediction.PreductionResult;
+import com.example.sickpredict.user.NewPredictionActivity;
 import com.example.sickpredict.user.PredictionResultActivity;
 import com.example.sickpredict.utils.LoadingDialog;
 import com.google.android.material.chip.Chip;
@@ -58,7 +60,7 @@ public class PredictionActivity extends AppCompat {
     private Button predict;
     private TextView result;
     private ImageButton microphone;
-    private String url = "https://ml1-9y6p.onrender.com/predict";
+    private String url = "https://ml1-wqn5.onrender.com/predict";
     private String medicineUrl = "https://drug-prediction-ghnj.onrender.com/predict";
 
 
@@ -90,8 +92,11 @@ public class PredictionActivity extends AppCompat {
 
             public void onClick(View view) {
 
-                loadingDialog.show();
-                Prediction();
+                Intent intent = new Intent(PredictionActivity.this, NewPredictionActivity.class);
+                intent.putStringArrayListExtra("symptoms", symptoms_array);
+                startActivity(intent);
+//                loadingDialog.show();
+//                Prediction();
 
             }
 
@@ -224,69 +229,69 @@ public class PredictionActivity extends AppCompat {
     }
 
 
-    protected void Prediction() {
-
-        if (symptoms_array.isEmpty()) {
-            Toast.makeText(PredictionActivity.this, "Please enter symptoms", Toast.LENGTH_LONG).show();
-            return; // Exit early if symptoms are empty
-        }
-
-
-        // Convert symptoms array to JSON array
-
-        // Create JSON object with the symptoms array
-        JSONObject jsonBody = new JSONObject();
-        try {
-            JSONArray jsonArray = new JSONArray(symptoms_array);
-            // Put the JSONArray into the jsonBody
-            jsonBody.put("symptoms", jsonArray);
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return; // Exit early if there's an error creating the JSON object
-        }
-
-        // Hit the API
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-//                            System.out.println("mujeeb" + response);
-                            String data = response.getString("prediction");
-                            String accuracy = response.getString("Accuracy");
-                            loadingDialog.hide();
-
-                            if (data.isEmpty()) {
-                                Toast.makeText(PredictionActivity.this, "No prediction found", Toast.LENGTH_SHORT).show();
-                                return;
-                            } else {
-                                loadingDialog.hide();
-                                medicinePrediction(data, 20, gender, accuracy);
-
-                            }
-//                            result.setText("Prediction: " + data + ", Accuracy: " + prob);
-                        } catch (JSONException e) {
-                            loadingDialog.hide();
-                            e.printStackTrace();
-                            Toast.makeText(PredictionActivity.this, "Error parsing response", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        Toast.makeText(PredictionActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-        // Add the request to the RequestQueue
-        RequestQueue queue = Volley.newRequestQueue(PredictionActivity.this);
-        queue.add(jsonObjectRequest);
-
-    }
+//    protected void Prediction() {
+//
+//        if (symptoms_array.isEmpty()) {
+//            Toast.makeText(PredictionActivity.this, "Please enter symptoms", Toast.LENGTH_LONG).show();
+//            return; // Exit early if symptoms are empty
+//        }
+//
+//
+//        // Convert symptoms array to JSON array
+//
+//        // Create JSON object with the symptoms array
+//        JSONObject jsonBody = new JSONObject();
+//        try {
+//            JSONArray jsonArray = new JSONArray(symptoms_array);
+//            // Put the JSONArray into the jsonBody
+//            jsonBody.put("symptoms", jsonArray);
+//
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//            return; // Exit early if there's an error creating the JSON object
+//        }
+//
+//        // Hit the API
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        try {
+////                            System.out.println("mujeeb" + response);
+//                            String data = response.getString("prediction");
+//                            String accuracy = response.getString("Accuracy");
+//                            loadingDialog.hide();
+//
+//                            if (data.isEmpty()) {
+//                                Toast.makeText(PredictionActivity.this, "No prediction found", Toast.LENGTH_SHORT).show();
+//                                return;
+//                            } else {
+//                                loadingDialog.hide();
+//                                medicinePrediction(data, 20, gender, accuracy);
+//
+//                            }
+////                            result.setText("Prediction: " + data + ", Accuracy: " + prob);
+//                        } catch (JSONException e) {
+//                            loadingDialog.hide();
+//                            e.printStackTrace();
+//                            Toast.makeText(PredictionActivity.this, "Error parsing response", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        error.printStackTrace();
+//                        Toast.makeText(PredictionActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//
+//        // Add the request to the RequestQueue
+//        RequestQueue queue = Volley.newRequestQueue(PredictionActivity.this);
+//        queue.add(jsonObjectRequest);
+//
+//    }
 
 
 
@@ -339,7 +344,7 @@ public class PredictionActivity extends AppCompat {
                                     drugs
                             );
 
-                            System.out.println("harshad" + drugs );
+//                            System.out.println("harshad" + drugs );
 
                             Intent intent = new Intent(PredictionActivity.this, PredictionResultActivity.class);
                             intent.putExtra("result", temp);
