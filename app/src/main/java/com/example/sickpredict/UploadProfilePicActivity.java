@@ -44,6 +44,7 @@ public class UploadProfilePicActivity extends AppCompat {
     private SwipeRefreshLayout swipeContainer;
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users");
+    DatabaseReference databasePatientListReference = FirebaseDatabase.getInstance().getReference("chats");
 
 
 

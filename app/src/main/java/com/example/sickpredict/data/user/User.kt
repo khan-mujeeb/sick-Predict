@@ -9,7 +9,7 @@ data class User (
     val dob: String = "",
     val gender: String =  "",
     val mobile: String = "",
-    val profile: String = "",
+    var profile: String = "",
     val uid: String = ""
 ): Parcelable {
     constructor(parcel: Parcel) : this(

@@ -15,6 +15,7 @@ import com.example.sickpredict.databinding.ChatItemViewBinding
 import com.example.sickpredict.doctor.DoctorChatActivity
 import com.example.sickpredict.user.PatientProfileActivity
 import com.example.sickpredict.user.UserChatActivity
+import com.example.sickpredict.utils.FirebaseUtils.firebaseDatabase
 import com.google.firebase.database.FirebaseDatabase
 
 class ChatAdapter(var context: Context,var list: List<User>):RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
@@ -36,9 +37,18 @@ class ChatAdapter(var context: Context,var list: List<User>):RecyclerView.Adapte
 
 
 
-        Glide.with(context).load(user.profile)
-            .placeholder(R.drawable.ic_baseline_person_24)
-            .into(holder.binding.userImg)
+        firebaseDatabase.getReference("Registered Users").child(user.uid).child("profile").get().addOnSuccessListener {
+            Log.d("TAG", "onBindViewHolder: ${it.value}")
+            Glide.with(context).load(it.value.toString())
+                .placeholder(R.drawable.ic_baseline_person_24)
+                .into(holder.binding.userImg)
+
+            user.profile = it.value.toString()
+        }.addOnFailureListener {
+            Log.d("TAG", "onBindViewHolder: ${it.message}")
+        }
+
+
 
         holder.binding.userName.text = user.fullname
 
