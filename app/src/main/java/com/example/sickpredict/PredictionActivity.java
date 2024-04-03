@@ -126,7 +126,6 @@ public class PredictionActivity extends AppCompat {
 //        age = sharedPref.getString("dob", "10");
         age = "22";
 
-        System.out.println("harshad" + gender + age);
 
 
         loadingDialog = new LoadingDialog(this);

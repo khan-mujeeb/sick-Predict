@@ -135,6 +135,7 @@ public class HomeActivity extends AppCompat {
 
                     editor.putString("dob", helperClass.dob);
                     editor.putString("gender", helperClass.gender);
+                    editor.putString("name", helperClass.fullname);
                     editor.apply();
                     loadingDialog.hide();
 

@@ -1,15 +1,14 @@
 package com.example.sickpredict.user
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
-import android.view.View
-import android.widget.LinearLayout
 import android.widget.Toast
-import com.example.sickpredict.R
+import androidx.appcompat.app.AppCompatActivity
 import com.example.sickpredict.data.prediction.PreductionResult
 import com.example.sickpredict.databinding.ActivityDoctorListBinding
 import com.example.sickpredict.utils.DoctorData
@@ -25,7 +24,8 @@ class DoctorListActivity : AppCompatActivity(), PaymentResultListener {
     var doctorList = DoctorData.doctorList
     var doctorId = 0
     var tts: TextToSpeech? = null
-
+    lateinit var sharedPref: SharedPreferences
+    var name = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +67,13 @@ class DoctorListActivity : AppCompatActivity(), PaymentResultListener {
     }
 
     private fun variableInitialization() {
+        sharedPref = applicationContext.getSharedPreferences("my_prefs", MODE_PRIVATE)
+
         prediction = intent.getSerializableExtra("result") as PreductionResult
+        name = sharedPref.getString("name", "") !!
+
+        Log.d("MY NAME IS ", " $name")
+
     }
 
 
@@ -76,25 +82,6 @@ class DoctorListActivity : AppCompatActivity(), PaymentResultListener {
 
     private fun subscribeClickListner() {
 
-
-
-//        binding.dr1.setOnClickListener {
-//            intent.putExtra("name", doctorList[0].name)
-//            intent.putExtra("uid", doctorList[0].uid)
-//            startActivity(intent)
-//        }
-//
-//        binding.dr2.setOnClickListener {
-//            intent.putExtra("name", doctorList[1].name)
-//            intent.putExtra("uid", doctorList[1].uid)
-//            startActivity(intent)
-//        }
-//
-//        binding.dr3.setOnClickListener {
-//            intent.putExtra("name", doctorList[2].name)
-//            intent.putExtra("uid", doctorList[2].uid)
-//            startActivity(intent)
-//        }
 
         binding.dr1.setOnClickListener {
             doctorId = 1
@@ -115,7 +102,7 @@ class DoctorListActivity : AppCompatActivity(), PaymentResultListener {
     private fun subscribeUi() {
         tts = TextToSpeech(applicationContext) { i ->
             if (i == TextToSpeech.SUCCESS) {
-                val textToSpeak = ""
+                val textToSpeak = "Welcome, $name The Predicted Disease is ${prediction.prediction} for entered symptoms are ${prediction.symtomps}. Please select a doctor to chat with."
                 tts!!.language = Locale.US
                 tts!!.setSpeechRate(0.5f)
                 tts!!.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null)
